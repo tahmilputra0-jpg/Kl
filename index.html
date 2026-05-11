@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Login Ultimate | Sayaocit Panel</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0B1020 0%, #1A1F2F 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* background glows effect */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0,255,255,0.15) 0%, rgba(0,255,255,0) 70%);
+            top: -100px;
+            left: -100px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(138,43,226,0.12) 0%, rgba(138,43,226,0) 70%);
+            bottom: -150px;
+            right: -100px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .glass-card {
+            background: rgba(20, 25, 40, 0.7);
+            backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .container {
+            padding: 2rem 1.8rem 2.2rem;
+        }
+
+        .logo-area {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .badge {
+            background: rgba(0, 212, 255, 0.15);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #8ad4ff;
+            backdrop-filter: blur(2px);
+            border: 0.5px solid rgba(0,212,255,0.3);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, #FFFFFF, #A0C2FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.4rem;
+        }
+
+        .sub {
+            color: #8E9AB0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* input styling */
+        .input-group {
+            margin-bottom: 1.4rem;
+            position: relative;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5D6F8F;
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(12, 16, 28, 0.7);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            padding: 0.9rem 1rem 0.9rem 2.8rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #F0F3FA;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2b6eff;
+            background: rgba(18, 24, 40, 0.9);
+            box-shadow: 0 0 0 3px rgba(43, 110, 255, 0.2);
+        }
+
+        input::placeholder {
+            color: #4C5A78;
+            font-weight: 400;
+        }
+
+        /* button utama */
+        .btn-login {
+            background: linear-gradient(95deg, #2b6eff, #9f4eff);
+            border: none;
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.25s;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            box-shadow: 0 6px 14px rgba(43, 110, 255, 0.25);
+        }
+
+        .btn-login:hover {
+            transform: scale(1.01);
+            background: linear-gradient(95deg, #1f5be8, #8e3eff);
+            box-shadow: 0 10px 20px rgba(43, 110, 255, 0.4);
+        }
+
+        /* key generator area */
+        .key-section {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 1.5rem;
+            padding: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b7c2e0;
+            margin-bottom: 1rem;
+        }
+
+        .section-title i {
+            font-size: 1rem;
+            color: #3b82f6;
+        }
+
+        .key-input-row {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .key-input-row input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            background: rgba(8, 10, 20, 0.7);
+        }
+
+        .mini-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            padding: 0 1.2rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #ccd6f6;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .mini-btn:hover {
+            background: #2b6eff30;
+            border-color: #2b6eff;
+            color: white;
+        }
+
+        .generate-btn {
+            background: linear-gradient(130deg, #232b44, #141b2f);
+            width: 100%;
+            justify-content: center;
+            padding: 0.7rem;
+            margin-top: 0.25rem;
+        }
+
+        .info-message {
+            font-size: 0.75rem;
+            color: #8fa2ce;
+            margin-top: 0.8rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem;
+            border-radius: 1rem;
+        }
+
+        .timer-status {
+            font-family: monospace;
+            font-weight: bold;
+            color: #6ee7ff;
+        }
+
+        .alert-custom {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            margin-top: 0.8rem;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .alert-error {
+            color: #ffb4a2;
+            border-left: 3px solid #ff4d4d;
+        }
+
+        .alert-success {
+            color: #b9fbc0;
+            border-left: 3px solid #2ecc71;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5F6F92;
+            margin-top: 1.7rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="glass-card">
+    <div class="container">
+        <div class="logo-area">
+            <div class="badge">
+                <i class="fas fa-shield-alt"></i> SECURE ACCESS
+            </div>
+            <h1>ULTIMATE</h1>
+            <div class="sub">panel.sayaocit.biz</div>
+        </div>
+
+        <!-- FORM LOGIN DENGAN KEY (ADMIN / GENERATED) -->
+        <form id="loginForm">
+            <div class="input-group">
+                <i class="fas fa-key"></i>
+                <input type="text" id="accessKeyInput" placeholder="Masukkan Key Akses" autocomplete="off">
+            </div>
+            <button type="submit" class="btn-login">
+                <i class="fas fa-arrow-right-to-bracket"></i> Verifikasi & Masuk
+            </button>
+        </form>
+
+        <!-- Notification area -->
+        <div id="loginMessage" class="alert-custom hidden"></div>
+
+        <!-- FITUR GENERATE KEY 1 MENIT AKSES + KEY KHUSUS ADMIN -->
+        <div class="key-section">
+            <div class="section-title">
+                <i class="fas fa-fingerprint"></i> 
+                <span>Generator Key Akses Cepat</span>
+            </div>
+            <div class="key-input-row">
+                <input type="text" id="generatedKeyDisplay" readonly placeholder="Klik generate untuk key 1 menit" value="">
+                <button type="button" id="copyGenKeyBtn" class="mini-btn"><i class="far fa-copy"></i> Copy</button>
+            </div>
+            <button id="generateKeyBtn" class="mini-btn generate-btn">
+                <i class="fas fa-bolt"></i> Generate Key (1 menit akses)
+            </button>
+            <div id="timerInfo" class="info-message">
+                <i class="far fa-hourglass-half"></i> <span id="timerText">Belum ada key aktif</span>
+            </div>
+            <div class="info-message" style="margin-top: 8px; background:#0F1222;">
+                <i class="fas fa-crown"></i> <strong>Key Khusus Admin:</strong> <span style="font-family:monospace; background:#00000040; padding:2px 8px; border-radius:20px;">ADMINMILZSTORE</span>
+            </div>
+        </div>
+        <footer>
+            <i class="fas fa-laptop-code"></i> DelopYyy · Ultimate Security
+        </footer>
+    </div>
+</div>
+
+<script>
+    // ----------------------------- KONFIGURASI -----------------------------
+    // KEY ADMIN statis (sesuai permintaan: KEY:ADMINMILZSTORE)
+    const ADMIN_MASTER_KEY = "ADMINMILZSTORE";
+
+    // Store untuk key sementara (generated) yang aktif dengan waktu kadaluarsa
+    let activeTempKey = null;        // { keyValue, expiresAt }
+    let timerInterval = null;
+
+    // Elemen DOM
+    const accessKeyInput = document.getElementById('accessKeyInput');
+    const loginForm = document.getElementById('loginForm');
+    const loginMessageDiv = document.getElementById('loginMessage');
+    const generatedKeyDisplay = document.getElementById('generatedKeyDisplay');
+    const generateBtn = document.getElementById('generateKeyBtn');
+    const copyGenKeyBtn = document.getElementById('copyGenKeyBtn');
+    const timerTextSpan = document.getElementById('timerText');
+
+    // Helper: tampilkan pesan di form login
+    function showLoginMessage(msg, isError = true) {
+        loginMessageDiv.classList.remove('hidden', 'alert-success', 'alert-error');
+        if (isError) {
+            loginMessageDiv.classList.add('alert-error');
+        } else {
+            loginMessageDiv.classList.add('alert-success');
+        }
+        loginMessageDiv.innerHTML = `<i class="fas ${isError ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i> ${msg}`;
+        loginMessageDiv.classList.remove('hidden');
+        
+        // auto hide setelah 4 detik
+        setTimeout(() => {
+            if (loginMessageDiv) loginMessageDiv.classList.add('hidden');
+        }, 4000);
+    }
+
+    // validasi key apakah valid (admin atau generated berlaku)
+    function isValidKey(key) {
+        if (!key) return false;
+        // 1. cek admin key
+        if (key === ADMIN_MASTER_KEY) return true;
+        // 2. cek key yang digenerate (masih berlaku)
+        if (activeTempKey && activeTempKey.keyValue === key) {
+            const now = Date.now();
+            if (now < activeTempKey.expiresAt) {
+                return true;
+            } else {
+                // jika sudah kadaluarsa, hapus dari memory agar tidak dipakai lagi
+                if (activeTempKey.keyValue === key) {
+                    clearTempKey();
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    // hapus temporary key dan hentikan timer visual
+    function clearTempKey() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+        activeTempKey = null;
+        // update tampilan timer
+        if (timerTextSpan) timerTextSpan.innerText = "Tidak ada key sementara aktif";
+        // jangan hapus display generatedKeyDisplay biar kosong atau kasih placeholder
+        if (generatedKeyDisplay) generatedKeyDisplay.value = "";
+    }
+
+    // update countdown timer (setiap detik)
+    function startCountdown(expiresTimestamp) {
+        if (timerInterval) clearInterval(timerInterval);
+        const updateTimer = () => {
+            const now = Date.now();
+            const remainingMs = expiresTimestamp - now;
+            if (remainingMs <= 0) {
+                // key expired
+                if (timerTextSpan) timerTextSpan.innerText = "⏰ Key telah kadaluarsa!";
+                clearTempKey();
+                // juga update tampilan generate display
+                if (generatedKeyDisplay) generatedKeyDisplay.value = "";
+                // tampilkan info di message section (tetap non-intrusive)
+                showLoginMessage("Key sementara telah kedaluwarsa", true);
+                return;
+            }
+            const seconds = Math.ceil(remainingMs / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            if (minutes > 0) {
+                timerTextSpan.innerText = `⏱️ Berlaku: ${minutes}m ${secs}d`;
+            } else {
+                timerTextSpan.innerText = `⏱️ Berlaku: ${secs} detik`;
+            }
+        };
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    // generate key baru dengan masa aktif 60 detik
+    function generateOneMinuteKey() {
+        // generate random string (8 karakter alfanumerik + huruf besar, mudah dibaca)
+        const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase() + 
+                          Math.floor(Math.random() * 900 + 100).toString();
+        // tambahkan awalan agar kelihatan "TMP" biar beda, tapi key bebas
+        const newKey = `TMP${randomStr}`;
+        const expiresAt = Date.now() + (60 * 1000); // 1 menit
+        
+        // hapus key lama jika ada
+        clearTempKey();
+        
+        // set key baru
+        activeTempKey = {
+            keyValue: newKey,
+            expiresAt: expiresAt
+        };
+        
+        // tampilkan di field generator
+        generatedKeyDisplay.value = newKey;
+        // jalankan countdown
+        startCountdown(expiresAt);
+        
+        // beri notifikasi berhasil
+        showLoginMessage(`✨ Key sementara berhasil dibuat! berlaku 1 menit.`, false);
+        
+        // optional: auto clear dari memory setelah expired (sudah di handle di countdown)
+        return newKey;
+    }
+
+    // copy key hasil generate
+    function copyGeneratedKey() {
+        if (!generatedKeyDisplay.value) {
+            showLoginMessage("Tidak ada key untuk disalin. Generate terlebih dahulu.", true);
+            return;
+        }
+        const keyVal = generatedKeyDisplay.value;
+        navigator.clipboard.writeText(keyVal).then(() => {
+            showLoginMessage(`Key "${keyVal}" disalin ke clipboard!`, false);
+        }).catch(() => {
+            showLoginMessage("Gagal menyalin key", true);
+        });
+    }
+
+    // EVENT: Generate key
+    generateBtn.addEventListener('click', () => {
+        generateOneMinuteKey();
+    });
+
+    // copy button
+    copyGenKeyBtn.addEventListener('click', copyGeneratedKey);
+
+    // handle login form submission
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const enteredKey = accessKeyInput.value.trim();
+        
+        if (enteredKey === "") {
+            showLoginMessage("Masukkan key akses terlebih dahulu!", true);
+            return;
+        }
+        
+        if (isValidKey(enteredKey)) {
+            // LOGIN SUKSES - redirect ke target: https://panel.sayaocit.biz/DELOPYYYY/ultimate
+            showLoginMessage("✅ Akses DITERIMA! Mengarahkan ke panel Ultimate...", false);
+            // sedikit delay agar user melihat pesan sukses sebelum redirect
+            setTimeout(() => {
+                window.location.href = "https://panel.sayaocit.biz/DELOPYYYY/ultimate";
+            }, 1200);
+        } else {
+            // pengecekan apakah key nya adalah generated tapi expired?
+            let errorMsg = "❌ Key tidak valid atau telah kadaluarsa.";
+            if (activeTempKey && activeTempKey.keyValue === enteredKey && Date.now() >= activeTempKey.expiresAt) {
+                errorMsg = "⏰ Key sementara sudah kadaluarsa. Silahkan generate key baru.";
+            } else if (enteredKey !== ADMIN_MASTER_KEY && (!activeTempKey || activeTempKey.keyValue !== enteredKey)) {
+                errorMsg = "❌ Key tidak dikenal. Gunakan Key Admin atau generate key 1 menit.";
+            }
+            showLoginMessage(errorMsg, true);
+            // shake effect kecil opsional
+            const inputField = document.getElementById('accessKeyInput');
+            inputField.style.transform = 'shake 0.2s';
+            setTimeout(() => { inputField.style.transform = ''; }, 200);
+        }
+    });
+
+    // tambahan efek (shake css jika diperlukan)
+    const styleShake = document.createElement('style');
+    styleShake.textContent = `
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+        .shake-input {
+            animation: shake 0.2s ease-in-out 0s 1;
+        }
+    `;
+    document.head.appendChild(styleShake);
+    
+    // ketika input salah manual menambahkan class
+    const inputEl = document.getElementById('accessKeyInput');
+    if (inputEl) {
+        inputEl.addEventListener('animationend', () => {
+            inputEl.classList.remove('shake-input');
+        });
+    }
+    
+    // prefill note: untuk memudahkan user, tidak otomatis mengisi admin, tapi kita tampilkan contoh (exp: bisa doubleclick)
+    // juga supaya admin tidak perlu generate, cukup masukkan ADMINMILZSTORE
+    // Tambahkan tip kecil di placeholder
+    accessKeyInput.placeholder = "Contoh: ADMINMILZSTORE atau key hasil generate";
+    
+    // jika ingin mencegah redirect saat demo, tapi karena permintaan, redirect diatas sudah sesuai
+    // TIDAK ADA storage persistent, hanya memory.
+    // fitur tambahan: ketika sudah ada active key, jika di generate ulang, akan replace dan countdown beres.
+    // Memastikan saat generate dan copy berfungsi ramah mobile
+
+    // Inisialisasi: bersihkan status saat load
+    clearTempKey();
+    generatedKeyDisplay.value = "";
+    
+    // validasi jika ada link eksternal, jangan sampai keluar tanpa pesan. It's all set.
+    // Memberikan visual 'key siap' untuk admin
+    console.log("Ultimate Login page ready — Admin Key: ADMINMILZSTORE | Generate 1 menit aktif");
+</script>
+</body>
+</html>
